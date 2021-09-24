@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct FlowView: View {
-  @ObservedObject var flow: Flow
+struct AppFlowView: View {
+  @ObservedObject var flow: AppFlow
   
   var body: some View {
     Group {
@@ -39,11 +39,6 @@ struct SplashView: View {
   }
 }
 
-struct ProjectCellItem: Equatable, Identifiable {
-  let id: UUID
-  let name: String
-}
-
 struct HomeView: View {
   let projects: [ProjectCellItem]
   
@@ -65,12 +60,14 @@ struct LoginView: View {
 
   var body: some View {
     VStack {
-      Text("login")
+      Text("Login")
       TextField("Username", text: $flow.username, prompt: nil)
       TextField("Password", text: $flow.password, prompt: nil)
-      Button(action: flow.login) {
+      Button(action: flow.loginTaps.tap) {
         Text("Login")
       }
     }
+    .font(.title)
+    .padding()
   }
 }

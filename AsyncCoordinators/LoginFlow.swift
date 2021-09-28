@@ -34,27 +34,15 @@ class LoginFlow: ObservableObject {
     password = ""
   }
 }
-
-struct LoginView: View {
+struct LoginFlowView: View {
   @ObservedObject var flow: LoginFlow
 
   var body: some View {
-    VStack {
-      Text("Login")
-      TextField("Username", text: $flow.username, prompt: nil)
-      TextField("Password", text: $flow.password, prompt: nil)
-      Button {
-        flow.actions.add(.tapLogin)
-      } label: {
-        Text("Login")
-      }
-      Button {
-        flow.actions.add(.tapCancel)
-      } label: {
-        Text("Cancel")
-      }
-    }
-    .font(.title)
-    .padding()
+    LoginView(
+      username: $flow.username,
+      password: $flow.password,
+      tapLogin: { flow.actions.add(.tapLogin) },
+      tapCancel: { flow.actions.add(.tapCancel) }
+    )
   }
 }

@@ -61,7 +61,7 @@ struct MainFlowView: View {
     .animation(.linear, value: flow.screen)
     .sheet(isPresented: $flow.isShowingLogin) {
       if let loginFlow = flow.loginFlow {
-        LoginView(flow: loginFlow)
+        LoginFlowView(flow: loginFlow)
       }
     }
   }

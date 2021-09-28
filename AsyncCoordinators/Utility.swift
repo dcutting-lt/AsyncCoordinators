@@ -4,7 +4,6 @@ func pause(seconds: UInt64) async {
 }
 
 // Convert imperative function call to an AsyncSequence.
-// TODO: check for leaks.
 struct EventStream<T> {
   lazy var stream: AsyncStream<T> = {
     AsyncStream(T.self) { continuation in

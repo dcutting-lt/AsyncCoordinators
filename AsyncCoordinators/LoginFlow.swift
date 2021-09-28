@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 class LoginFlow: ObservableObject {
   enum Action {
     case tapLogin
@@ -8,30 +9,33 @@ class LoginFlow: ObservableObject {
 
   @Published var username = ""
   @Published var password = ""
+  @Published var isLoadingUser = false
   var actions = EventStream<Action>()
 
   func run() async -> User? {
     let userLoader = UserLoader()
 
-  actions: for await action in actions.stream {
+  actionLoop: for await action in actions.stream {
       switch action {
       case .tapLogin:
         do {
+          self.isLoadingUser = true
+          defer { self.isLoadingUser = false }
           return try await userLoader.load(username: username, password: password)
         } catch {
-          await reset()
+          reset()
         }
       case .tapCancel:
-        break actions
+        break actionLoop
       }
     }
 
     return nil
   }
 
-  @MainActor func reset() {
-    username = ""
-    password = ""
+  func reset() {
+    self.username = ""
+    self.password = ""
   }
 }
 struct LoginFlowView: View {
@@ -41,6 +45,7 @@ struct LoginFlowView: View {
     LoginView(
       username: $flow.username,
       password: $flow.password,
+      isBusy: flow.isLoadingUser,
       tapLogin: { flow.actions.add(.tapLogin) },
       tapCancel: { flow.actions.add(.tapCancel) }
     )

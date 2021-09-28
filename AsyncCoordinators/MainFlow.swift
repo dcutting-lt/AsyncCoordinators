@@ -1,13 +1,14 @@
 import SwiftUI
 
+@MainActor
 class MainFlow: ObservableObject {
   enum Screen: Equatable {
     case splash
     case projectList([ProjectCellItem])
   }
 
-  @MainActor @Published var screen = Screen.splash
-  @MainActor @Published var isShowingLogin = false
+  @Published var screen = Screen.splash
+  @Published var isShowingLogin = false
 
   var loginFlow: LoginFlow?
 
@@ -18,7 +19,7 @@ class MainFlow: ObservableObject {
     await showHome(projects: projects, user: user)
   }
 
-  @MainActor func login() async -> User? {
+  func login() async -> User? {
     // TODO: handle swipe dismiss.
     let loginFlow = LoginFlow()
     self.isShowingLogin = true
@@ -30,7 +31,7 @@ class MainFlow: ObservableObject {
     return await loginFlow.run()
   }
 
-  @MainActor func showHome(projects: [Project], user: User?) async {
+  func showHome(projects: [Project], user: User?) async {
     let projectCellItems = makeProjectCellItems(projects: projects)
     self.screen = .projectList(projectCellItems)
   }

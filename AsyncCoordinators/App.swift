@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct AsyncCoordinatorsApp: App {
-  @StateObject var flow = MainFlow()
+  @StateObject private var flow = MainFlow()
 
   var body: some Scene {
     WindowGroup {

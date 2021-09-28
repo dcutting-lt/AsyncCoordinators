@@ -2,22 +2,22 @@ import SwiftUI
 
 @MainActor
 class LoginFlow: ObservableObject, Identifiable {
-  enum Action {
-    case tapLogin
-    case tapCancel
+  fileprivate enum Action {
+    case login
+    case cancel
   }
 
-  @Published var username = ""
-  @Published var password = ""
-  @Published var isLoadingUser = false
-  var actions = EventStream<Action>()
+  @Published fileprivate var username = ""
+  @Published fileprivate var password = ""
+  @Published fileprivate var isLoadingUser = false
+  fileprivate var actions = EventStream<Action>()
 
   func run() async -> User? {
     let userLoader = UserLoader()
 
   actionLoop: for await action in actions.stream {
       switch action {
-      case .tapLogin:
+      case .login:
         do {
           self.isLoadingUser = true
           defer { self.isLoadingUser = false }
@@ -25,7 +25,7 @@ class LoginFlow: ObservableObject, Identifiable {
         } catch {
           reset()
         }
-      case .tapCancel:
+      case .cancel:
         break actionLoop
       }
     }
@@ -33,11 +33,16 @@ class LoginFlow: ObservableObject, Identifiable {
     return nil
   }
 
-  func reset() {
+  func cancel() {
+    actions.add(.cancel)
+  }
+
+  private func reset() {
     self.username = ""
     self.password = ""
   }
 }
+
 struct LoginFlowView: View {
   @ObservedObject var flow: LoginFlow
 
@@ -46,8 +51,8 @@ struct LoginFlowView: View {
       username: $flow.username,
       password: $flow.password,
       isBusy: flow.isLoadingUser,
-      tapLogin: { flow.actions.add(.tapLogin) },
-      tapCancel: { flow.actions.add(.tapCancel) }
+      tapLogin: { flow.actions.add(.login) },
+      tapCancel: { flow.actions.add(.cancel) }
     )
   }
 }

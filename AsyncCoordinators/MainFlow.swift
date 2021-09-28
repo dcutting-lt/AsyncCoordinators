@@ -2,15 +2,15 @@ import SwiftUI
 
 @MainActor
 class MainFlow: ObservableObject {
-  enum Screen: Equatable {
+  fileprivate enum Screen: Equatable {
     case splash
     case projectList([ProjectCellItem], String?)
   }
 
-  @Published var screen = Screen.splash
-  @Published var loginFlow: LoginFlow? {
+  @Published fileprivate var screen = Screen.splash
+  @Published fileprivate var loginFlow: LoginFlow? {
     willSet {
-      loginFlow?.actions.add(.tapCancel)  // Need this to handle swipe dismiss of sheet.
+      loginFlow?.cancel()  // Need this to handle swipe dismiss of sheet.
     }
   }
 
@@ -21,13 +21,13 @@ class MainFlow: ObservableObject {
     await showProjectList(projects: projects, user: user)
   }
 
-  func runLogin() async -> User? {
+  private func runLogin() async -> User? {
     self.loginFlow = LoginFlow()
     defer { self.loginFlow = nil }
     return await loginFlow?.run()
   }
 
-  func showProjectList(projects: [Project], user: User?) async {
+  private func showProjectList(projects: [Project], user: User?) async {
     let projectCellItems = makeProjectCellItems(projects: projects)
     self.screen = .projectList(projectCellItems, user?.username)
   }

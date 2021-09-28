@@ -25,7 +25,7 @@ class LoginFlow: ObservableObject {
         break actions
       }
     }
-    
+
     return nil
   }
 

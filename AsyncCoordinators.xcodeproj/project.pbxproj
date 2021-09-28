@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C811ED6426D3751D009D1C32 /* AsyncCoordinatorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811ED6326D3751D009D1C32 /* AsyncCoordinatorsApp.swift */; };
-		C811ED6626D3751D009D1C32 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811ED6526D3751D009D1C32 /* FlowView.swift */; };
+		C811ED6426D3751D009D1C32 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811ED6326D3751D009D1C32 /* App.swift */; };
+		C811ED6626D3751D009D1C32 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811ED6526D3751D009D1C32 /* ProjectListView.swift */; };
 		C811ED6826D3751F009D1C32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C811ED6726D3751F009D1C32 /* Assets.xcassets */; };
 		C811ED6B26D3751F009D1C32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C811ED6A26D3751F009D1C32 /* Preview Assets.xcassets */; };
 		C811ED7526D3751F009D1C32 /* AsyncCoordinatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811ED7426D3751F009D1C32 /* AsyncCoordinatorsTests.swift */; };
 		C811ED7F26D3751F009D1C32 /* AsyncCoordinatorsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811ED7E26D3751F009D1C32 /* AsyncCoordinatorsUITests.swift */; };
 		C811ED8126D3751F009D1C32 /* AsyncCoordinatorsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C811ED8026D3751F009D1C32 /* AsyncCoordinatorsUITestsLaunchTests.swift */; };
-		C854EA7126FD96C700868C62 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854EA7026FD96C700868C62 /* Flow.swift */; };
+		C82AC11F2702A78C00E5FE5B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC11E2702A78C00E5FE5B /* Utility.swift */; };
+		C82AC1212702A93800E5FE5B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1202702A93800E5FE5B /* Model.swift */; };
+		C82AC1232702A99C00E5FE5B /* LoginFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1222702A99C00E5FE5B /* LoginFlow.swift */; };
+		C82AC1252702A9E600E5FE5B /* ProjectLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1242702A9E600E5FE5B /* ProjectLoader.swift */; };
+		C82AC1272702AA4400E5FE5B /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1262702AA4400E5FE5B /* SplashView.swift */; };
+		C854EA7126FD96C700868C62 /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854EA7026FD96C700868C62 /* MainFlow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +41,8 @@
 
 /* Begin PBXFileReference section */
 		C811ED6026D3751D009D1C32 /* AsyncCoordinators.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsyncCoordinators.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C811ED6326D3751D009D1C32 /* AsyncCoordinatorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCoordinatorsApp.swift; sourceTree = "<group>"; };
-		C811ED6526D3751D009D1C32 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
+		C811ED6326D3751D009D1C32 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		C811ED6526D3751D009D1C32 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		C811ED6726D3751F009D1C32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C811ED6A26D3751F009D1C32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C811ED7026D3751F009D1C32 /* AsyncCoordinatorsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncCoordinatorsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +50,12 @@
 		C811ED7A26D3751F009D1C32 /* AsyncCoordinatorsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncCoordinatorsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C811ED7E26D3751F009D1C32 /* AsyncCoordinatorsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCoordinatorsUITests.swift; sourceTree = "<group>"; };
 		C811ED8026D3751F009D1C32 /* AsyncCoordinatorsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCoordinatorsUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		C854EA7026FD96C700868C62 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
+		C82AC11E2702A78C00E5FE5B /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		C82AC1202702A93800E5FE5B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		C82AC1222702A99C00E5FE5B /* LoginFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlow.swift; sourceTree = "<group>"; };
+		C82AC1242702A9E600E5FE5B /* ProjectLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectLoader.swift; sourceTree = "<group>"; };
+		C82AC1262702AA4400E5FE5B /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		C854EA7026FD96C700868C62 /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +106,14 @@
 		C811ED6226D3751D009D1C32 /* AsyncCoordinators */ = {
 			isa = PBXGroup;
 			children = (
-				C811ED6326D3751D009D1C32 /* AsyncCoordinatorsApp.swift */,
-				C811ED6526D3751D009D1C32 /* FlowView.swift */,
-				C854EA7026FD96C700868C62 /* Flow.swift */,
+				C811ED6326D3751D009D1C32 /* App.swift */,
+				C854EA7026FD96C700868C62 /* MainFlow.swift */,
+				C82AC1262702AA4400E5FE5B /* SplashView.swift */,
+				C811ED6526D3751D009D1C32 /* ProjectListView.swift */,
+				C82AC1222702A99C00E5FE5B /* LoginFlow.swift */,
+				C82AC1242702A9E600E5FE5B /* ProjectLoader.swift */,
+				C82AC1202702A93800E5FE5B /* Model.swift */,
+				C82AC11E2702A78C00E5FE5B /* Utility.swift */,
 				C811ED6726D3751F009D1C32 /* Assets.xcassets */,
 				C811ED6926D3751F009D1C32 /* Preview Content */,
 			);
@@ -260,9 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C854EA7126FD96C700868C62 /* Flow.swift in Sources */,
-				C811ED6626D3751D009D1C32 /* FlowView.swift in Sources */,
-				C811ED6426D3751D009D1C32 /* AsyncCoordinatorsApp.swift in Sources */,
+				C82AC1212702A93800E5FE5B /* Model.swift in Sources */,
+				C82AC1272702AA4400E5FE5B /* SplashView.swift in Sources */,
+				C82AC11F2702A78C00E5FE5B /* Utility.swift in Sources */,
+				C854EA7126FD96C700868C62 /* MainFlow.swift in Sources */,
+				C82AC1252702A9E600E5FE5B /* ProjectLoader.swift in Sources */,
+				C82AC1232702A99C00E5FE5B /* LoginFlow.swift in Sources */,
+				C811ED6626D3751D009D1C32 /* ProjectListView.swift in Sources */,
+				C811ED6426D3751D009D1C32 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,13 +2,13 @@ import SwiftUI
 
 @main
 struct AsyncCoordinatorsApp: App {
-  @StateObject var flow = AppFlow()
+  @StateObject var flow = MainFlow()
 
   var body: some Scene {
     WindowGroup {
-      AppFlowView(flow: flow)
+      MainFlowView(flow: flow)
         .onAppear {
-          Task { await self.flow.start() }
+          Task { await self.flow.run() }
         }
     }
   }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 @MainActor
-class LoginFlow: ObservableObject {
+class LoginFlow: ObservableObject, Identifiable {
   enum Action {
     case tapLogin
     case tapCancel

@@ -8,30 +8,26 @@ class MainFlow: ObservableObject {
   }
 
   @Published var screen = Screen.splash
-  @Published var isShowingLogin = false
-
-  var loginFlow: LoginFlow?
+  @Published var loginFlow: LoginFlow? {
+    willSet {
+      loginFlow?.actions.add(.tapCancel)  // Need this to handle swipe dismiss of sheet.
+    }
+  }
 
   func run() async {
     async let projects = ProjectLoader().allProjects
     await pause(seconds: 2)
-    let user = await login()
-    await showHome(projects: projects, user: user)
+    let user = await runLogin()
+    await showProjectList(projects: projects, user: user)
   }
 
-  func login() async -> User? {
-    // TODO: handle swipe dismiss.
-    let loginFlow = LoginFlow()
-    self.isShowingLogin = true
-    self.loginFlow = loginFlow
-    defer {
-      self.isShowingLogin = false
-      self.loginFlow = nil
-    }
-    return await loginFlow.run()
+  func runLogin() async -> User? {
+    self.loginFlow = LoginFlow()
+    defer { self.loginFlow = nil }
+    return await loginFlow?.run()
   }
 
-  func showHome(projects: [Project], user: User?) async {
+  func showProjectList(projects: [Project], user: User?) async {
     let projectCellItems = makeProjectCellItems(projects: projects)
     self.screen = .projectList(projectCellItems, user?.username)
   }
@@ -60,10 +56,8 @@ struct MainFlowView: View {
     .ignoresSafeArea()
     .transition(.opacity)
     .animation(.linear, value: flow.screen)
-    .sheet(isPresented: $flow.isShowingLogin) {
-      if let loginFlow = flow.loginFlow {
-        LoginFlowView(flow: loginFlow)
-      }
+    .sheet(item: $flow.loginFlow) {
+      LoginFlowView(flow: $0)
     }
   }
 }

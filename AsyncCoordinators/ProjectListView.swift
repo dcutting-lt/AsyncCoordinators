@@ -8,6 +8,7 @@ struct ProjectCellItem: Equatable, Identifiable {
 struct ProjectListView: View {
   let projects: [ProjectCellItem]
   let username: String?
+  let tapLogin: () -> Void
   
   var body: some View{
     List {
@@ -15,6 +16,10 @@ struct ProjectListView: View {
         Text(username)
           .font(.caption)
           .foregroundColor(.secondary)
+      } else {
+        Button(action: tapLogin) {
+          Text("Login")
+        }
       }
       Text("Projects")
         .font(.largeTitle)

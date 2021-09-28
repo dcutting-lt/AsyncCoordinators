@@ -13,12 +13,17 @@ class MainFlow: ObservableObject {
       loginFlow?.cancel()  // Need this to handle swipe dismiss of sheet.
     }
   }
+  fileprivate var tapLogin = EventStream<Void>()
 
   func run() async {
     async let projects = ProjectLoader().allProjects
     await pause(seconds: 2)
     let user = await runLogin()
     showProjectList(projects: await projects, user: user)
+    for await _ in tapLogin.stream {
+      let user = await runLogin()
+      showProjectList(projects: await projects, user: user)
+    }
   }
 
   private func runLogin() async -> User? {
@@ -50,7 +55,7 @@ struct MainFlowView: View {
       case .splash:
         SplashView()
       case .projectList(let projectCellItems, let username):
-        ProjectListView(projects: projectCellItems, username: username)
+        ProjectListView(projects: projectCellItems, username: username, tapLogin: { flow.tapLogin.add(()) })
       }
     }
     .ignoresSafeArea()

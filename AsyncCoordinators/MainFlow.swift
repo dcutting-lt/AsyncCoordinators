@@ -18,7 +18,7 @@ class MainFlow: ObservableObject {
     async let projects = ProjectLoader().allProjects
     await pause(seconds: 2)
     let user = await runLogin()
-    await showProjectList(projects: projects, user: user)
+    showProjectList(projects: await projects, user: user)
   }
 
   private func runLogin() async -> User? {
@@ -27,7 +27,7 @@ class MainFlow: ObservableObject {
     return await loginFlow?.run()
   }
 
-  private func showProjectList(projects: [Project], user: User?) async {
+  private func showProjectList(projects: [Project], user: User?) {
     let projectCellItems = makeProjectCellItems(projects: projects)
     self.screen = .projectList(projectCellItems, user?.username)
   }

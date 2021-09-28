@@ -13,15 +13,13 @@ class LoginFlow: ObservableObject, Identifiable {
   fileprivate var actions = EventStream<Action>()
 
   func run() async -> User? {
-    let userLoader = UserLoader()
-
   actionLoop: for await action in actions.stream {
       switch action {
       case .login:
         do {
           self.isLoadingUser = true
           defer { self.isLoadingUser = false }
-          return try await userLoader.load(username: username, password: password)
+          return try await UserLoader().load(username: username, password: password)
         } catch {
           reset()
         }

@@ -4,7 +4,7 @@ import SwiftUI
 class MainFlow: ObservableObject {
   enum Screen: Equatable {
     case splash
-    case projectList([ProjectCellItem])
+    case projectList([ProjectCellItem], String?)
   }
 
   @Published var screen = Screen.splash
@@ -33,7 +33,7 @@ class MainFlow: ObservableObject {
 
   func showHome(projects: [Project], user: User?) async {
     let projectCellItems = makeProjectCellItems(projects: projects)
-    self.screen = .projectList(projectCellItems)
+    self.screen = .projectList(projectCellItems, user?.username)
   }
 
   private func makeProjectCellItems(projects: [Project]) -> [ProjectCellItem] {
@@ -53,8 +53,8 @@ struct MainFlowView: View {
       switch flow.screen {
       case .splash:
         SplashView()
-      case .projectList(let projectCellItems):
-        ProjectListView(projects: projectCellItems)
+      case .projectList(let projectCellItems, let username):
+        ProjectListView(projects: projectCellItems, username: username)
       }
     }
     .ignoresSafeArea()

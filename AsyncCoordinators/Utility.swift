@@ -5,15 +5,15 @@ func pause(seconds: UInt64) async {
 
 // Convert imperative function call to an AsyncSequence.
 // TODO: check for leaks.
-struct TapStream {
-  lazy var stream: AsyncStream<Void> = {
-    AsyncStream(Void.self) { continuation in
+struct EventStream<T> {
+  lazy var stream: AsyncStream<T> = {
+    AsyncStream(T.self) { continuation in
       self.continuation = continuation
     }
   }()
-  private var continuation: AsyncStream<Void>.Continuation?
+  private var continuation: AsyncStream<T>.Continuation?
 
-  func tap() {
-    continuation?.yield()
+  func add(_ element: T) {
+    continuation?.yield(element)
   }
 }

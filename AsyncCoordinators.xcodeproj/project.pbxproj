@@ -19,6 +19,7 @@
 		C82AC1232702A99C00E5FE5B /* LoginFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1222702A99C00E5FE5B /* LoginFlow.swift */; };
 		C82AC1252702A9E600E5FE5B /* ProjectLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1242702A9E600E5FE5B /* ProjectLoader.swift */; };
 		C82AC1272702AA4400E5FE5B /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1262702AA4400E5FE5B /* SplashView.swift */; };
+		C82AC1292702B5D400E5FE5B /* UserLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AC1282702B5D400E5FE5B /* UserLoader.swift */; };
 		C854EA7126FD96C700868C62 /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854EA7026FD96C700868C62 /* MainFlow.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		C82AC1222702A99C00E5FE5B /* LoginFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlow.swift; sourceTree = "<group>"; };
 		C82AC1242702A9E600E5FE5B /* ProjectLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectLoader.swift; sourceTree = "<group>"; };
 		C82AC1262702AA4400E5FE5B /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		C82AC1282702B5D400E5FE5B /* UserLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoader.swift; sourceTree = "<group>"; };
 		C854EA7026FD96C700868C62 /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 				C811ED6526D3751D009D1C32 /* ProjectListView.swift */,
 				C82AC1222702A99C00E5FE5B /* LoginFlow.swift */,
 				C82AC1242702A9E600E5FE5B /* ProjectLoader.swift */,
+				C82AC1282702B5D400E5FE5B /* UserLoader.swift */,
 				C82AC1202702A93800E5FE5B /* Model.swift */,
 				C82AC11E2702A78C00E5FE5B /* Utility.swift */,
 				C811ED6726D3751F009D1C32 /* Assets.xcassets */,
@@ -281,6 +284,7 @@
 				C854EA7126FD96C700868C62 /* MainFlow.swift in Sources */,
 				C82AC1252702A9E600E5FE5B /* ProjectLoader.swift in Sources */,
 				C82AC1232702A99C00E5FE5B /* LoginFlow.swift in Sources */,
+				C82AC1292702B5D400E5FE5B /* UserLoader.swift in Sources */,
 				C811ED6626D3751D009D1C32 /* ProjectListView.swift in Sources */,
 				C811ED6426D3751D009D1C32 /* App.swift in Sources */,
 			);

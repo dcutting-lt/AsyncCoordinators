@@ -1,5 +1,10 @@
 import Foundation
 
+struct User {
+  let id: UUID
+  let username: String
+}
+
 class UserLoader {
   enum Error: Swift.Error {
     case invalid

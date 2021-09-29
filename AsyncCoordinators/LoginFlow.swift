@@ -2,6 +2,7 @@ import SwiftUI
 
 @MainActor
 class LoginFlow: ObservableObject, Identifiable {
+  // These are the only actions the login flow can handle.
   fileprivate enum Action {
     case login
     case cancel
@@ -19,7 +20,7 @@ class LoginFlow: ObservableObject, Identifiable {
     defer { print(">> LoginFlow stop") }
 
     // Sequentially handle the actions for this flow until the user logs in or cancels.
-  actionLoop: for await action in actions.stream {
+    for await action in actions.stream {
       switch action {
       case .login:
         do {
@@ -30,7 +31,7 @@ class LoginFlow: ObservableObject, Identifiable {
           reset()
         }
       case .cancel:
-        break actionLoop
+        return nil
       }
     }
 
@@ -49,6 +50,7 @@ class LoginFlow: ObservableObject, Identifiable {
   }
 }
 
+// This FlowView bridges the flow logic to a SwiftUI view.
 struct LoginFlowView: View {
   @ObservedObject var flow: LoginFlow
 

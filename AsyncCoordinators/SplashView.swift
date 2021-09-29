@@ -14,5 +14,6 @@ struct SplashView: View {
           .scaleEffect(2)
       }
     }
+    .ignoresSafeArea()
   }
 }

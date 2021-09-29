@@ -1,5 +1,10 @@
 import Foundation
 
+struct Project {
+  let id: UUID
+  var name: String
+}
+
 class ProjectLoader {
   var allProjects: [Project] {
     get async {

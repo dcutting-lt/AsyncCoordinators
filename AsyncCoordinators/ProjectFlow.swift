@@ -2,23 +2,24 @@ import SwiftUI
 
 @MainActor
 class ProjectFlow: ObservableObject {
+  // These are the only actions the project flow can handle.
   fileprivate enum Action {
     case login
     case logout
   }
 
   @Published fileprivate var projects: [ProjectCellItem]
-  @Published fileprivate var user: User?
+  @Published fileprivate var loggedInUser: User?
   @Published fileprivate var loginFlow: LoginFlow? {
     willSet {
-      loginFlow?.abortFlow()  // Need this to handle swipe dismiss of sheet.
+      loginFlow?.abortFlow()  // This is called when the user swipes to dismiss the login sheet.
     }
   }
   fileprivate var actions = EventStream<Action>()
 
   init(projects: [Project], user: User?) {
     self.projects = Self.makeProjectCellItems(projects: projects)
-    self.user = user
+    self.loggedInUser = user
   }
 
   // The run loop for the project flow never ends since it's the main screen of the app.
@@ -26,13 +27,13 @@ class ProjectFlow: ObservableObject {
     print(">> ProjectFlow start")
     defer { print(">> ProjectFlow stop") }
 
-    // Sequentially handle the actions for this flow.
+    // Sequentially handle the actions for this flow (forever).
     for await action in actions.stream {
       switch action {
       case .login:
-        self.user = await runLoginFlow()
+        self.loggedInUser = await runLoginFlow()
       case .logout:
-        self.user = nil
+        self.loggedInUser = nil
       }
     }
   }
@@ -57,13 +58,13 @@ struct ProjectFlowView: View {
 
   var body: some View {
     NavigationView {
-      ProjectListView(projects: flow.projects)
+      ProjectView(projects: flow.projects)
         .sheet(item: $flow.loginFlow) {
           LoginFlowView(flow: $0)
         }
         .toolbar {
           ToolbarItemGroup {
-            if let user = flow.user {
+            if let user = flow.loggedInUser {
               AccountIndicatorView(title: user.username) {
                 flow.actions.add(.logout)
               }

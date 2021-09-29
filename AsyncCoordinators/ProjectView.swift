@@ -5,14 +5,12 @@ struct ProjectCellItem: Equatable, Identifiable {
   let name: String
 }
 
-struct ProjectListView: View {
+struct ProjectView: View {
   let projects: [ProjectCellItem]
   
   var body: some View{
-    List {
-      ForEach(projects) { project in
-        Text(project.name)
-      }
+    List(projects) {
+      Text($0.name)
     }
     .navigationTitle("Projects")
   }

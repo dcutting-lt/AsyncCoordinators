@@ -1,5 +1,6 @@
 import SwiftUI
 
+// This view knows nothing about the flows it may be part of.
 struct LoginView: View {
   @Binding var username: String
   @Binding var password: String

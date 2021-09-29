@@ -59,6 +59,7 @@
 		C82AC1282702B5D400E5FE5B /* UserLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoader.swift; sourceTree = "<group>"; };
 		C82AC12A2702C13900E5FE5B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C82AC12E2704286D00E5FE5B /* ProjectFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFlow.swift; sourceTree = "<group>"; };
+		C82AC3152704974900E5FE5B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C854EA7026FD96C700868C62 /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +111,7 @@
 		C811ED6226D3751D009D1C32 /* AsyncCoordinators */ = {
 			isa = PBXGroup;
 			children = (
+				C82AC3152704974900E5FE5B /* README.md */,
 				C811ED6326D3751D009D1C32 /* App.swift */,
 				C854EA7026FD96C700868C62 /* MainFlow.swift */,
 				C82AC1262702AA4400E5FE5B /* SplashView.swift */,

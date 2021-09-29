@@ -5,11 +5,13 @@ class ProjectFlow: ObservableObject {
   // These are the only actions the project flow can handle.
   fileprivate enum Action {
     case login
+    case requestLogout
     case logout
   }
 
   @Published fileprivate var projects: [ProjectCellItem]
   @Published fileprivate var loggedInUser: User?
+  @Published fileprivate var isShowingLogoutAlert = false
   @Published fileprivate var loginFlow: LoginFlow? {
     willSet {
       loginFlow?.abortFlow()  // This is called when the user swipes to dismiss the login sheet.
@@ -32,6 +34,8 @@ class ProjectFlow: ObservableObject {
       switch action {
       case .login:
         self.loggedInUser = await runLoginFlow()
+      case .requestLogout:
+        self.isShowingLogoutAlert = true
       case .logout:
         self.loggedInUser = nil
       }
@@ -62,11 +66,15 @@ struct ProjectFlowView: View {
         .sheet(item: $flow.loginFlow) {
           LoginFlowView(flow: $0)
         }
+        .alert("Are you sure you want to logout?", isPresented: $flow.isShowingLogoutAlert) {
+          Button("Cancel", role: .cancel) {}
+          Button("Logout", role: .destructive) { flow.actions.add(.logout) }
+        }
         .toolbar {
           ToolbarItemGroup {
             if let user = flow.loggedInUser {
               AccountIndicatorView(title: user.username) {
-                flow.actions.add(.logout)
+                flow.actions.add(.requestLogout)
               }
             } else {
               AccountIndicatorView(title: "Login") {

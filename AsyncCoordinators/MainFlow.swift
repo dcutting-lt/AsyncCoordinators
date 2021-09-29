@@ -15,6 +15,9 @@ class MainFlow: ObservableObject {
   }
 
   func run() async {
+    print(">> MainFlow start")
+    defer { print(">> MainFlow stop") }
+
     async let projects = ProjectLoader().allProjects
     await pause(seconds: 1)
     let user = await runLoginFlow()

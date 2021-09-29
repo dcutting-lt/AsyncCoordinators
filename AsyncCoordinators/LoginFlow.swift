@@ -13,6 +13,9 @@ class LoginFlow: ObservableObject, Identifiable {
   fileprivate var actions = EventStream<Action>()
 
   func run() async -> User? {
+    print(">> LoginFlow start")
+    defer { print(">> LoginFlow stop") }
+
   actionLoop: for await action in actions.stream {
       switch action {
       case .login:

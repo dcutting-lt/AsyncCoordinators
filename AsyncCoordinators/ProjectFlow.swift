@@ -25,6 +25,9 @@ class ProjectFlow: ObservableObject {
   }
 
   func run() async {
+    print(">> ProjectFlow start")
+    defer { print(">> ProjectFlow stop") }
+
     for await action in actions.stream {
       switch action {
       case .login:

@@ -91,6 +91,7 @@
 		C811ED5726D3751D009D1C32 = {
 			isa = PBXGroup;
 			children = (
+				C82AC3152704974900E5FE5B /* README.md */,
 				C811ED6226D3751D009D1C32 /* AsyncCoordinators */,
 				C811ED7326D3751F009D1C32 /* AsyncCoordinatorsTests */,
 				C811ED7D26D3751F009D1C32 /* AsyncCoordinatorsUITests */,
@@ -111,7 +112,6 @@
 		C811ED6226D3751D009D1C32 /* AsyncCoordinators */ = {
 			isa = PBXGroup;
 			children = (
-				C82AC3152704974900E5FE5B /* README.md */,
 				C811ED6326D3751D009D1C32 /* App.swift */,
 				C854EA7026FD96C700868C62 /* MainFlow.swift */,
 				C82AC1262702AA4400E5FE5B /* SplashView.swift */,

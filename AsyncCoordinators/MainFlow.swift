@@ -2,9 +2,9 @@ import SwiftUI
 
 @MainActor
 class MainFlow: ObservableObject {
-  fileprivate enum Screen: Equatable {
+  fileprivate enum Screen {
     case splash
-    case projectList([ProjectCellItem], String?)
+    case projects(ProjectFlow)
   }
 
   @Published fileprivate var screen = Screen.splash
@@ -13,36 +13,24 @@ class MainFlow: ObservableObject {
       loginFlow?.cancel()  // Need this to handle swipe dismiss of sheet.
     }
   }
-  fileprivate var tapLogin = EventStream<Void>()
 
   func run() async {
     async let projects = ProjectLoader().allProjects
-    await pause(seconds: 2)
-    let user = await runLogin()
-    showProjectList(projects: await projects, user: user)
-    for await _ in tapLogin.stream {
-      let user = await runLogin()
-      showProjectList(projects: await projects, user: user)
-    }
+    await pause(seconds: 1)
+    let user = await runLoginFlow()
+    await runProjectFlow(projects: await projects, user: user)
   }
 
-  private func runLogin() async -> User? {
+  private func runLoginFlow() async -> User? {
     self.loginFlow = LoginFlow()
     defer { self.loginFlow = nil }
     return await loginFlow?.run()
   }
 
-  private func showProjectList(projects: [Project], user: User?) {
-    let projectCellItems = makeProjectCellItems(projects: projects)
-    self.screen = .projectList(projectCellItems, user?.username)
-  }
-
-  private func makeProjectCellItems(projects: [Project]) -> [ProjectCellItem] {
-    projects
-      .sorted { $0.name < $1.name }
-      .map { project in
-        ProjectCellItem(id: project.id, name: project.name.uppercased())
-      }
+  private func runProjectFlow(projects: [Project], user: User?) async {
+    let projectFlow = ProjectFlow(projects: projects, user: user)
+    self.screen = .projects(projectFlow)
+    await projectFlow.run()
   }
 }
 
@@ -54,8 +42,8 @@ struct MainFlowView: View {
       switch flow.screen {
       case .splash:
         SplashView()
-      case .projectList(let projectCellItems, let username):
-        ProjectListView(projects: projectCellItems, username: username, tapLogin: { flow.tapLogin.add(()) })
+      case .projects(let flow):
+        ProjectFlowView(flow: flow)
       }
     }
     .ignoresSafeArea()
@@ -63,6 +51,19 @@ struct MainFlowView: View {
     .animation(.linear, value: flow.screen)
     .sheet(item: $flow.loginFlow) {
       LoginFlowView(flow: $0)
+    }
+  }
+}
+
+extension MainFlow.Screen: Equatable {
+  static func == (lhs: Self, rhs: Self) -> Bool {
+    switch (lhs, rhs) {
+    case (.splash, .splash):
+      return true
+    case (.projects, .projects):
+      return true
+    default:
+      return false
     }
   }
 }

@@ -7,44 +7,39 @@ class ProjectFlow: ObservableObject {
     case logout
   }
 
-  @Published var projects: [ProjectCellItem]
-  @Published var username: String?
-  @Published var isShowingLogin = false {
+  @Published fileprivate var projects: [ProjectCellItem]
+  @Published fileprivate var user: User?
+  @Published fileprivate var loginFlow: LoginFlow? {
     willSet {
-      if !newValue {
-        loginFlow?.cancel()
-      }
+      loginFlow?.abortFlow()  // Need this to handle swipe dismiss of sheet.
     }
   }
   fileprivate var actions = EventStream<Action>()
-  var loginFlow: LoginFlow?
 
   init(projects: [Project], user: User?) {
     self.projects = Self.makeProjectCellItems(projects: projects)
-    self.username = user?.username
+    self.user = user
   }
 
+  // The run loop for the project flow never ends since it's the main screen of the app.
   func run() async {
     print(">> ProjectFlow start")
     defer { print(">> ProjectFlow stop") }
 
+    // Sequentially handle the actions for this flow.
     for await action in actions.stream {
       switch action {
       case .login:
-        self.username = (await runLogin())?.username
+        self.user = await runLoginFlow()
       case .logout:
-        self.username = nil
+        self.user = nil
       }
     }
   }
 
-  private func runLogin() async -> User? {
+  private func runLoginFlow() async -> User? {
     self.loginFlow = LoginFlow()
-    self.isShowingLogin = true
-    defer {
-      self.loginFlow = nil
-      self.isShowingLogin = false
-    }
+    defer { self.loginFlow = nil }
     return await loginFlow?.run()
   }
 
@@ -62,12 +57,21 @@ struct ProjectFlowView: View {
 
   var body: some View {
     NavigationView {
-      ProjectListView(projects: flow.projects,
-                      accountButtonTitle: flow.username ?? "Login",
-                      tapAccountButton: { flow.actions.add(flow.username == nil ? .login : .logout) })
-        .sheet(isPresented: $flow.isShowingLogin) {
-          if let loginFlow = flow.loginFlow {
-            LoginFlowView(flow: loginFlow)
+      ProjectListView(projects: flow.projects)
+        .sheet(item: $flow.loginFlow) {
+          LoginFlowView(flow: $0)
+        }
+        .toolbar {
+          ToolbarItemGroup {
+            if let user = flow.user {
+              AccountIndicatorView(title: user.username) {
+                flow.actions.add(.logout)
+              }
+            } else {
+              AccountIndicatorView(title: "Login") {
+                flow.actions.add(.login)
+              }
+            }
           }
         }
     }

@@ -8,22 +8,37 @@ struct LoginView: View {
   var tapCancel: () -> Void
 
   var body: some View {
-    VStack {
-      Text("Login")
-      if isBusy {
-        ProgressView()
-      } else {
-        TextField("Username", text: $username, prompt: nil)
-        TextField("Password", text: $password, prompt: nil)
-        Button(action: tapLogin) {
+    ZStack {
+      Color.yellow
+      VStack {
+        if isBusy {
+          ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+            .scaleEffect(2)
+        } else {
           Text("Login")
-        }
-        Button(action: tapCancel) {
-          Text("Cancel")
+            .font(.largeTitle)
+          TextField("Username", text: $username, prompt: nil)
+            .foregroundColor(.black)
+          TextField("Password", text: $password, prompt: nil)
+            .foregroundColor(.black)
+          HStack {
+            Button(action: tapCancel) {
+              Text("Cancel")
+            }
+            Button(action: tapLogin) {
+              Text("Login")
+            }
+          }
+          .padding()
         }
       }
+      .font(.title)
+      .foregroundColor(.white)
+      .buttonStyle(.bordered)
+      .textFieldStyle(.roundedBorder)
+      .padding()
     }
-    .font(.title)
-    .padding()
+    .ignoresSafeArea()
   }
 }

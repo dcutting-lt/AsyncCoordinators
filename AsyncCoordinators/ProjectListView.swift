@@ -7,8 +7,6 @@ struct ProjectCellItem: Equatable, Identifiable {
 
 struct ProjectListView: View {
   let projects: [ProjectCellItem]
-  let accountButtonTitle: String
-  let tapAccountButton: () -> Void
   
   var body: some View{
     List {
@@ -17,10 +15,17 @@ struct ProjectListView: View {
       }
     }
     .navigationTitle("Projects")
-    .toolbar {
-      Button(action: tapAccountButton) {
-        Text(accountButtonTitle)
-      }
+  }
+}
+
+struct AccountIndicatorView: View {
+  var title: String
+  var action: () -> Void
+
+  var body: some View {
+    Button(action: action) {
+      Label(title, systemImage: "person.crop.circle")
+        .labelStyle(.titleAndIcon)
     }
   }
 }

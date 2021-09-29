@@ -12,10 +12,13 @@ class LoginFlow: ObservableObject, Identifiable {
   @Published fileprivate var isLoadingUser = false
   fileprivate var actions = EventStream<Action>()
 
+  // The run loop for the login flow ends either when the user successfully logs in or cancels.
+  // If logged in, the User object is returned.
   func run() async -> User? {
     print(">> LoginFlow start")
     defer { print(">> LoginFlow stop") }
 
+    // Sequentially handle the actions for this flow until the user logs in or cancels.
   actionLoop: for await action in actions.stream {
       switch action {
       case .login:
@@ -34,7 +37,9 @@ class LoginFlow: ObservableObject, Identifiable {
     return nil
   }
 
-  func cancel() {
+  // This is needed because the login flow can be aborted by the user with a swipe dismiss,
+  // which cannot be directly intercepted.
+  func abortFlow() {
     actions.add(.cancel)
   }
 

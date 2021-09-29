@@ -3,14 +3,15 @@ import SwiftUI
 struct SplashView: View {
   var body: some View {
     ZStack {
-      Color.yellow
+      Color.purple
       VStack {
         Text("Loading...")
           .font(.largeTitle)
-          .foregroundColor(.primary)
+          .foregroundColor(.white)
           .padding()
         ProgressView()
-          .colorMultiply(Color.black)
+          .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+          .scaleEffect(2)
       }
     }
   }

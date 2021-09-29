@@ -10,18 +10,19 @@ class MainFlow: ObservableObject {
   @Published fileprivate var screen = Screen.splash
   @Published fileprivate var loginFlow: LoginFlow? {
     willSet {
-      loginFlow?.cancel()  // Need this to handle swipe dismiss of sheet.
+      loginFlow?.abortFlow()  // Need this to handle swipe dismiss of sheet.
     }
   }
 
+  // The entire flow of the app from start to finish.
   func run() async {
     print(">> MainFlow start")
     defer { print(">> MainFlow stop") }
 
-    async let projects = ProjectLoader().allProjects
-    await pause(seconds: 1)
-    let user = await runLoginFlow()
-    await runProjectFlow(projects: await projects, user: user)
+    async let projects = ProjectLoader().allProjects      // Load projects in the background.
+    await pause(seconds: 1)                               // Show splash screen for a second.
+    let user = await runLoginFlow()                       // Ask the user to login.
+    await runProjectFlow(projects: projects, user: user)  // Launch the project flow (which never ends).
   }
 
   private func runLoginFlow() async -> User? {
@@ -50,23 +51,8 @@ struct MainFlowView: View {
       }
     }
     .ignoresSafeArea()
-    .transition(.opacity)
-    .animation(.linear, value: flow.screen)
     .sheet(item: $flow.loginFlow) {
       LoginFlowView(flow: $0)
-    }
-  }
-}
-
-extension MainFlow.Screen: Equatable {
-  static func == (lhs: Self, rhs: Self) -> Bool {
-    switch (lhs, rhs) {
-    case (.splash, .splash):
-      return true
-    case (.projects, .projects):
-      return true
-    default:
-      return false
     }
   }
 }

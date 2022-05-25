@@ -20,9 +20,7 @@ struct LoginView: View {
           Text("Login")
             .font(.largeTitle)
           TextField("Username", text: $username, prompt: nil)
-            .foregroundColor(.black)
           TextField("Password", text: $password, prompt: nil)
-            .foregroundColor(.black)
           HStack {
             Button(action: tapCancel) {
               Text("Cancel")

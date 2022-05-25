@@ -1,6 +1,10 @@
 // Pause for a number of seconds in an async context.
 func pause(seconds: UInt64) async {
-  await Task.sleep(seconds * 1_000_000_000)
+  do {
+    try await Task.sleep(nanoseconds: seconds * 1_000_000_000)
+  } catch {
+    print(error)
+  }
 }
 
 // Convert imperative function call to an AsyncSequence.
